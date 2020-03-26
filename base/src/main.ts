@@ -1,8 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-
-async function bootstrap() {
+import UseSalfState from './use-middle';
+import { env } from './until/env-unit'
+const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  new UseSalfState(app);
+  await app.listen(env.getEnvScience('NEST_PORT'));
 }
 bootstrap();

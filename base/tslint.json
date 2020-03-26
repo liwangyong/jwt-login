@@ -1,18 +1,29 @@
 {
-  "defaultSeverity": "error",
-  "extends": ["tslint:recommended"],
-  "jsRules": {
-    "no-unused-expression": true
-  },
-  "rules": {
-    "quotemark": [true, "single"],
-    "member-access": [false],
-    "ordered-imports": [false],
-    "max-line-length": [true, 150],
-    "member-ordering": [false],
-    "interface-name": [false],
+	"defaultSeverity": "error",
+	"extends": ["tslint:recommended"],
+	"jsRules": {
+		"no-unused-expression": true
+	},
+	"emitDecoratorMetadata": true,
+	"experimentalDecorators": true,
+	"rules": {
+		"quotemark": [true, "single"],
+		"member-access": [false],
+		"ordered-imports": [false],
+		"semicolon": [false, "never", "ignore-interfaces"],
+		"max-line-length": [true, 150],
+		"indent": [false, "tabs", 4],
+		"member-ordering": [false],
+    "max-classes-per-file": [false],
+    "curly": false,
+		"no-console": false,
+		"no-string-literal": false,
+		"interface-name": [false],
+		"no-unused-expression": false,
     "arrow-parens": false,
-    "object-literal-sort-keys": false
-  },
-  "rulesDirectory": []
+    "forin": false,
+		"no-empty": false,
+		"object-literal-sort-keys": false
+	},
+	"rulesDirectory": []
 }
