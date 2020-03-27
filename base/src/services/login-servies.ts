@@ -5,7 +5,7 @@ import { ResultSend } from 'src/dto/result-dto';
 import { UserExtEntity } from 'src/entities/user-entity';
 @Injectable()
 export class LoginService {
-  constructor(private readonly userExtService: UserExtService) {}
+  constructor(private readonly userExtService: UserExtService) { }
   // 登录
   async login({ userName, password }): Promise<ResultSend<UserExtEntity>> {
     const data = await this.userExtService.find({
@@ -47,7 +47,18 @@ export class LoginService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    const info = await this.userExtService.SingOneInsert(res);
-    return { code: 200, content: info, message: '申请成功', success: true };
+    try {
+      const info = await this.userExtService.SingOneInsert(res);
+      return { code: 200, content: info, message: '申请成功', success: true };
+    } catch (err) {
+      console.log(err)
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: '申请失败，请重新申请',
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }

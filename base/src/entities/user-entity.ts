@@ -9,7 +9,8 @@ export class UserExtEntity extends BasicEntity {
   userName: string;
   @Column({ type: 'varchar', comment: '密码' })
   password: string;
-  @Column({ type: 'int', comment: '手机号' })
+  @Index()
+  @Column({ type: 'varchar', comment: '手机号' })
   phone: number;
   @Column({ type: 'varchar', comment: '头像' })
   hdImg: string;
