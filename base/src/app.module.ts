@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { env } from './until/env-unit';
+import { EntityModule } from './modules/entities/entity-module';
+import { LoginModule } from './modules/login-module';
+import { APP_FILTER } from '@nestjs/core';
+import { HttpExceptionFilter } from './guards/error-interceptor';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -13,11 +15,18 @@ import { env } from './until/env-unit';
       password: env.getEnvScience('NEST_PASSWORD'),
       database: 'nestjs',
       retryAttempts: 5,
-      entities: ['dist/**/*.entity{.ts,.js}'],
+      entities: ['dist/**/*-entity{.ts,.js}'],
       synchronize: true,
     }),
+    EntityModule,
+    LoginModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+  ],
 })
 export class AppModule {}

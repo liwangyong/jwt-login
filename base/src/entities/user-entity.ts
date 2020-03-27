@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
 import { BasicEntity } from './basics-entity';
 @Entity()
-export class LoggerExtEntity extends BasicEntity {
+export class UserExtEntity extends BasicEntity {
   @PrimaryGeneratedColumn() // 主键
   id: string;
   @Index()
@@ -9,6 +9,8 @@ export class LoggerExtEntity extends BasicEntity {
   userName: string;
   @Column({ type: 'varchar', comment: '密码' })
   password: string;
+  @Column({ type: 'int', comment: '手机号' })
+  phone: number;
   @Column({ type: 'varchar', comment: '头像' })
   hdImg: string;
   @Column({ type: 'varchar', comment: '背景图片' })

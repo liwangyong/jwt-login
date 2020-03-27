@@ -16,7 +16,7 @@ class UseSalfState {
     useMiddlie(app) {
         app.use(compression());
         app.use(helmet());
-        app.use(csurf({ cookie: true }));
+        // app.use(csurf({ cookie: true }));
         app.use(
             rateLimit({
                 windowMs: 15 * 60 * 1000, // 15 minutes

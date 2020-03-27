@@ -1,7 +1,24 @@
-import { Controller, Post, Inject } from '@nestjs/common';
+import { Controller, Post, Body, UsePipes } from '@nestjs/common';
 import { LoginService } from 'src/services/login-servies';
-
-@Controller('login')
+import { Register, User } from 'src/dto/services/login-dto';
+import { ApiOperation, ApiOkResponse } from '@nestjs/swagger';
+import { ResultSend } from 'src/dto/result-dto';
+import { JournalValidationPipe } from 'src/guards/pipe';
+@Controller('/')
 export class LoginController {
-    constructor(@Inject() loginService: LoginService) { }
+  constructor(private readonly loginService: LoginService) {}
+  @Post('/regis')
+  @ApiOperation({ summary: '注册' })
+  @ApiOkResponse({ description: '注册新的账号', type: ResultSend })
+  @UsePipes(new JournalValidationPipe())
+  register(@Body() res: Register) {
+    return this.loginService.newlyAdd(res);
+  }
+  @Post('/login')
+  @ApiOperation({ summary: '登录' })
+  @ApiOkResponse({ description: '登录成功', type: ResultSend })
+  @UsePipes(new JournalValidationPipe())
+  login(@Body() res: User) {
+    return this.loginService.login(res);
+  }
 }
