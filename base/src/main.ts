@@ -5,6 +5,6 @@ import { env } from './until/env-unit'
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
   new UseSalfState(app);
-  await app.listen(env.getEnvScience('NEST_PORT'));
+  await app.listen(env.getEnvScience('NEST_PORT'), '0.0.0.0');
 }
 bootstrap();
