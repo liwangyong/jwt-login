@@ -4,7 +4,7 @@ import { Register, User } from 'src/dto/services/login-dto';
 import { ApiOperation, ApiOkResponse } from '@nestjs/swagger';
 import { ResultSend } from 'src/dto/result-dto';
 import { JournalValidationPipe } from 'src/guards/pipe';
-@Controller('/api')
+@Controller('/')
 export class LoginController {
   constructor(private readonly loginService: LoginService) {}
   @Post('/regis')
