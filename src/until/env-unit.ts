@@ -1,6 +1,7 @@
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 import { Injectable } from '@nestjs/common';
+console.log(process.env.NODE_ENV)
 dotenv.config({
   path: path.resolve(process.cwd(), `.env.${process.env.NODE_ENV}`),
 });
