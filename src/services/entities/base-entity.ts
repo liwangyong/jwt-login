@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Repository, getConnection } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
-import { UserExtEntity } from 'src/entities/user-entity';
+import { getConnection, InsertResult } from 'typeorm';
 @Injectable()
 export class BaseEntity<T> {
   entity;
@@ -11,11 +9,14 @@ export class BaseEntity<T> {
   find(argsSearch = {}): Promise<T> {
     return this.entity.findOne(argsSearch);
   }
+  findAll(args = {}): Promise<T[]> {
+    return this.entity.findAll(args);
+  }
   /**
    * 批量insert数据
    * @bulkData 批量数据
    */
-  async batchEventInsert(bulkData: T[]): Promise<any> {
+  async batchEventInsert(bulkData: T[]): Promise<InsertResult> {
     return await getConnection()
       .createQueryBuilder()
       .insert()
