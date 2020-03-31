@@ -13,7 +13,7 @@ export class BaseEntity<T> {
    * 批量insert数据
    * @bulkData 批量数据
    */
-  async batchEventInsert(bulkData: []): Promise<InsertResult> {
+  async batchEventInsert(bulkData: any[]): Promise<any> {
     return await getConnection()
       .createQueryBuilder()
       .insert()
@@ -25,7 +25,7 @@ export class BaseEntity<T> {
    *  单个insert数据
    * @bulkData 单个数据
    */
-  async SingOneInsert(singData): Promise<any> {
+  async SingOneInsert(singData): Promise<T> {
     return await this.entity.save(singData);
   }
 }

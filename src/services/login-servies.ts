@@ -45,7 +45,7 @@ export class LoginService {
     );
   }
   // 注册
-  async newlyAdd(res: Register): Promise<ResultSend<string>> {
+  async newlyAdd(res: Register): Promise<ResultSend<UserExtEntity>> {
     const data = await this.userExtService.find({
       where: { userName: res.userName },
     });
