@@ -1,9 +1,10 @@
-import { Controller, Post, Body, UsePipes, Get } from '@nestjs/common';
+import { Controller, Post, Body, UsePipes, Get, UseGuards } from '@nestjs/common';
 import { LoginService } from 'src/services/login-servies';
 import { Register, User } from 'src/dto/services/login-dto';
 import { ApiOperation, ApiOkResponse } from '@nestjs/swagger';
 import { ResultSend } from 'src/dto/result-dto';
 import { JournalValidationPipe } from 'src/guards/pipe';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 @Controller('/')
 export class LoginController {
   constructor(private readonly loginService: LoginService) {}
@@ -21,6 +22,7 @@ export class LoginController {
   login(@Body() res: User) {
     return this.loginService.login(res);
   }
+  @UseGuards(JwtAuthGuard)
   @Get('/set')
   setLink() {
     return { code: 200, content: 'xxx' };

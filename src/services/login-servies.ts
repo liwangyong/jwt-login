@@ -1,11 +1,15 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { Register, User } from 'src/dto/services/login-dto';
+import { Register } from 'src/dto/services/login-dto';
 import { UserExtService } from './entities/user-entity';
 import { ResultSend } from 'src/dto/result-dto';
 import { UserExtEntity } from 'src/entities/user-entity';
+import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class LoginService {
-  constructor(private readonly userExtService: UserExtService) { }
+  constructor(
+    private readonly userExtService: UserExtService,
+    private jwtService: JwtService,
+  ) {}
   // 登录
   async login({ userName, password }): Promise<ResultSend<UserExtEntity>> {
     const data = await this.userExtService.find({
@@ -22,7 +26,14 @@ export class LoginService {
     });
     if (data) {
       if (data.password === password) {
-        return { code: 200, content: data, message: '', success: true };
+        return {
+          code: 200,
+          content: Object.assign(data, {
+            access_token: this.jwtService.sign({ id: data.id }),
+          }),
+          message: '',
+          success: true,
+        };
       }
     }
     throw new HttpException(
@@ -51,7 +62,6 @@ export class LoginService {
       const info = await this.userExtService.SingOneInsert(res);
       return { code: 200, content: info, message: '申请成功', success: true };
     } catch (err) {
-      console.log(err)
       throw new HttpException(
         {
           status: HttpStatus.INTERNAL_SERVER_ERROR,

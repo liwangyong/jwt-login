@@ -8,7 +8,7 @@ export class BaseEntity<T> {
   constructor(entity) {
     this.entity = entity;
   }
-  find(argsSearch = {}): Promise<UserExtEntity> {
+  find(argsSearch = {}): Promise<T> {
     return this.entity.findOne(argsSearch);
   }
   /**

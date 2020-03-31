@@ -4,7 +4,7 @@ module.exports = {
     script: 'yarn start:prod',
 
     // Options reference: https://pm2.keymetrics.io/docs/usage/application-declaration/
-    args: 'one two',
+    node_args: 'one two',
     instances: 1,
     autorestart: true,
     watch: ['dist/'],
@@ -21,6 +21,7 @@ module.exports = {
   }],
 
   deploy : {
+      // 不需要更改
     production : {
       user : 'node',
       host : '212.83.163.1',
