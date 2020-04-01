@@ -17,6 +17,9 @@ import { HttpExceptionFilter } from './guards/error-interceptor';
       retryAttempts: 5,
       entities: ['dist/**/*-entity{.ts,.js}'],
       synchronize: true,
+      cache: {
+        duration: 3000, // 30 seconds
+      },
     }),
     EntityModule,
     LoginModule,

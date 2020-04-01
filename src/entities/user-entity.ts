@@ -1,5 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  Index,
+  OneToMany,
+} from 'typeorm';
 import { BasicEntity } from './basics-entity';
+import { PhoneEntity } from './phone-entity';
 @Entity()
 export class UserExtEntity extends BasicEntity {
   @PrimaryGeneratedColumn() // 主键

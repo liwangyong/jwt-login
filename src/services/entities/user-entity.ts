@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Repository, getConnection } from 'typeorm';
+import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserExtEntity } from 'src/entities/user-entity';
 import { BaseEntity } from './base-entity';
@@ -9,6 +9,6 @@ export class UserExtService extends BaseEntity<UserExtEntity> {
     @InjectRepository(UserExtEntity)
     private readonly userExtEntity: Repository<UserExtEntity>,
   ) {
-    super(UserExtEntity);
+    super(userExtEntity);
   }
 }

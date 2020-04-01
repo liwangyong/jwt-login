@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { getConnection, InsertResult, Repository } from 'typeorm';
+import {
+  getConnection,
+  Repository,
+} from 'typeorm';
 @Injectable()
 export class BaseEntity<T> {
-  constructor(private readonly entity) {}
-  find(argsSearch = {}): Promise<T> {
-    return this.entity.findOne(argsSearch);
+  constructor(private readonly entity: Repository<T>) {}
+  find(args = {}): Promise<T> {
+    return this.entity.findOne(args);
   }
   findAll(args = {}): Promise<T[]> {
     return this.entity.find(args);
@@ -17,7 +20,7 @@ export class BaseEntity<T> {
     return await getConnection()
       .createQueryBuilder()
       .insert()
-      .into(this.entity)
+      .into(this.entity as any)
       .values(bulkData)
       .execute();
   }
