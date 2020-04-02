@@ -7,6 +7,8 @@ export class PhoneEntity extends BasicEntity {
   @Index()
   @Column({ type: 'varchar', comment: 'userId' })
   userId: string;
+  @Column({ type: 'bool', comment: '是否注册', default: true })
+  isConnect: boolean;
   @Column({ type: 'varchar', comment: '认识的人' })
   @Index()
   frPhones: string;
