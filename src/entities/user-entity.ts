@@ -25,4 +25,10 @@ export class UserExtEntity extends BasicEntity {
   bgImg: string;
   @Column({ type: 'varchar', comment: '自我描述' })
   description: string;
+  @Column({ type: 'varchar', comment: '自我描述' })
+  @OneToMany(
+    type => PhoneEntity,
+    photo => photo.userId,
+  )
+  frList: PhoneEntity[];
 }

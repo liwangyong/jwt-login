@@ -4,10 +4,13 @@ import { UserExtService } from './entities/user-entity';
 import { ResultSend } from 'src/dto/result-dto';
 import { UserExtEntity } from 'src/entities/user-entity';
 import { JwtService } from '@nestjs/jwt';
+import { PhoneEntity } from 'src/entities/phone-entity';
+import { RelaUserExtService } from './entities/rela-user-entity';
 @Injectable()
 export class LoginService {
   constructor(
     private readonly userExtService: UserExtService,
+    private readonly relaUserExtService: RelaUserExtService,
     private jwtService: JwtService,
   ) {}
   // 登录
@@ -25,6 +28,15 @@ export class LoginService {
       where: Object.assign({ deleted: false, userName }),
     });
     if (data) {
+      // relaUserExtService
+      const x = new PhoneEntity();
+      x.userId = data.id;
+      this.relaUserExtService.SingOneInsert(x);
+      const a = new UserExtEntity();
+      a.frList = [x];
+      this.userExtService.SingOneInsert(a);
+      const users = await this.userExtService.find({ relations: ['frList']});
+      console.log(users);
       if (data.password === password) {
         return {
           code: 200,
