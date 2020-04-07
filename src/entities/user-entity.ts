@@ -28,7 +28,7 @@ export class UserExtEntity extends BasicEntity {
   @Column({ type: 'varchar', comment: '自我描述' })
   @OneToMany(
     type => PhoneEntity,
-    photo => photo.userId,
+    item => item.userId,
   )
   frList: PhoneEntity[];
 }

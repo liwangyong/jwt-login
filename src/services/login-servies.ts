@@ -15,6 +15,7 @@ export class LoginService {
   ) {}
   // 登录
   async login({ userName, password }): Promise<ResultSend<UserExtEntity>> {
+    console.log(userName, password);
     const data = await this.userExtService.find({
       select: [
         'userName',
@@ -31,11 +32,14 @@ export class LoginService {
       // relaUserExtService
       const x = new PhoneEntity();
       x.userId = data.id;
-      this.relaUserExtService.SingOneInsert(x);
-      const a = new UserExtEntity();
-      a.frList = [x];
-      this.userExtService.SingOneInsert(a);
-      const users = await this.userExtService.find({ relations: ['frList']});
+      await this.relaUserExtService.SingOneInsert(x);
+    //   const a = new UserExtEntity();
+    //   a.frList = [x];
+    //   this.userExtService.SingOneInsert(a);
+      const users = await this.userExtService.find({
+        where: Object.assign({ deleted: false, userName }),
+        relations: ['frList'],
+      });
       console.log(users);
       if (data.password === password) {
         return {

@@ -16,7 +16,7 @@ export class PhoneEntity extends BasicEntity {
     type => UserExtEntity,
     user => user.frList,
   )
-//   @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'user_id' })
   userId: string;
   @Column({ type: 'bool', comment: '是否注册', default: true })
   isConnect: boolean;
