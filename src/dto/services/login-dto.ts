@@ -1,18 +1,23 @@
-import { IsString, IsNotEmpty, ValidateIf, IsNumber } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  ValidateIf,
+  IsNumber,
+  Length,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 export class User {
-  @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: '账号不能为空' })
   @ApiProperty({ description: '账号名字' })
   userName: string;
-  @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: '密码不能为空' })
   @ApiProperty({ description: '密码' })
   password: string;
 }
 export class Register extends User {
-  @IsNumber()
-  @IsNotEmpty()
+  @IsNumber({}, { message: '手机号必须为数字' })
+  @IsNotEmpty({ message: '手机号不为空' })
+  @Length(6, 11, { message: '手机号在6-11之间' })
   @ApiProperty({ description: '手机号' })
   phone: number;
   @IsString()

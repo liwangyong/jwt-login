@@ -13,7 +13,9 @@ export class JournalValidationPipe implements PipeTransform {
     const object = plainToClass(metatype, value);
     const err = await validate(object);
     if (err.length) {
-      throw new BadRequestException({ message: '类型错误' });
+      throw new BadRequestException({
+        error: Object.values(err[0].constraints)[0],
+      });
     }
     return value;
   }

@@ -3,8 +3,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { env } from './until/env-unit';
 import { EntityModule } from './modules/entities/entity-module';
 import { LoginModule } from './modules/login-module';
-import { APP_FILTER } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { HttpExceptionFilter } from './guards/error-interceptor';
+import { RolesGuard } from './guards/roles-guard';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -29,6 +30,10 @@ import { HttpExceptionFilter } from './guards/error-interceptor';
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
   ],
 })
